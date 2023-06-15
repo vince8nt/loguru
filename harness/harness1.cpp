@@ -15,13 +15,14 @@ int main(int argc, char* argv[]) {
         return 0; // exit success so not counted as defect
     buff[bytesRead] = '\0';
 
-    loguru::init(argc, argv); // loguru::init(0, nullptr);
+    loguru::init(argc, argv);
     LOG_F(INFO, "begin fuzz");
 
     while (1) {
         if (bytesWritten >= bytesRead)
             break;
         LOG_F(INFO, buff + bytesWritten);
+        ++bytesWritten;
         while (bytesWritten < bytesRead and buff[bytesWritten] != '\0')
             ++bytesWritten;
     }
