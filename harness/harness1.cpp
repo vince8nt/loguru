@@ -2,18 +2,23 @@
 
 #include "../loguru.cpp"
 
+#include <unistd.h>
+
+#define BUFF_SIZE 64
+
+char buff[BUFF_SIZE + 1];
+
 int main(int argc, char* argv[])
 {
-    int size = 1;
-    char name[8] = "log.txt";
-    char* p = name;
-    loguru::init(size, &p);
+    loguru::init(argc, argv);
     
     LOG_F(INFO, "begin fuzz");
 
-    for (int i = 0; i < argc; ++i) {
-        const char* str = argv[i];
-        LOG_F(INFO, str);
+    while (1) {
+        ssize_t bytesRead = read(STDIN_FILENO, buff, BUFF_SIZE);
+        if (bytesRead < 1) break;
+        buff[bytesRead] = '\0';
+        LOG_F(INFO, buff);
     }
 
     LOG_F(INFO, "end fuzz");
