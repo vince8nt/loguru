@@ -13,4 +13,4 @@ tasks:
   - name: coverage_analysis
 
 cmds:
-  - cmd: /harness1 @@
+  - cmd: /harness1
