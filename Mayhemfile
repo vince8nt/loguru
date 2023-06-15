@@ -3,4 +3,4 @@ target: loguru
 image: ghcr.io/vince8nt/loguru:latest
 
 cmds:
-  - cmd: /harness1 
+  - cmd: /harness1
