@@ -3,23 +3,35 @@
 #include "../loguru.cpp"
 
 #include <unistd.h>
+#include <fcntl.h>
 
-#define BUFF_SIZE 64
+#define BUFF_SIZE 1024
 
-char buff[BUFF_SIZE + 1];
+int main(int argc, char* argv[]) {
+    if (argc != 1)
+        return 0; // exit success so not counted as defect
+    int fd = open(argv[0], O_RDONLY);
+    if (fd < 0)
+        return 0; // exit success so not counted as defect
+    char buff[BUFF_SIZE + 1];
+    ssize_t bytesWritten = 0;
+    ssize_t bytesRead = read(STDIN_FILENO, buff, BUFF_SIZE);
+    if (bytesRead == -1)
+        return 0; // exit success so not counted as defect
+    buff[bytesRead] = '\0';
 
-int main(int argc, char* argv[])
-{
-    loguru::init(argc, argv);
-    
+    loguru::init(argc, argv); // loguru::init(0, nullptr);
     LOG_F(INFO, "begin fuzz");
 
     while (1) {
-        ssize_t bytesRead = read(STDIN_FILENO, buff, BUFF_SIZE);
-        if (bytesRead < 1) break;
-        buff[bytesRead] = '\0';
-        LOG_F(INFO, buff);
+        while (bytesWritten < bytesRead and buff[bytesWritten] == '\0')
+            ++bytesWritten;
+        if (bytesWritten >= bytesRead)
+            break;
+        LOG_F(INFO, buff + bytesWritten);
+        while (bytesWritten < bytesRead and buff[bytesWritten] != '\0')
+            ++bytesWritten;
     }
-
+    
     LOG_F(INFO, "end fuzz");
 }
