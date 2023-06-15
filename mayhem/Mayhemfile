@@ -1,5 +1,0 @@
-project: loguru
-target: loguru
-
-cmds:
-  - cmd: /loguru

@@ -6,18 +6,22 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y cmake clang g++
 
 ## Add source code to the build stage.
-ADD . /loguru
-WORKDIR /loguru
+
+ADD . /
+WORKDIR /
 
 ## TODO: ADD YOUR BUILD INSTRUCTIONS HERE.
-RUN mkdir build && \
-    cd build/ && \
-    CC=clang CXX=clang++ cmake ../loguru_example && \
-    make
+# RUN cmake loguru_example
+
+RUN mv loguru_example e1 # very dumb but was necessary
+RUN mkdir build
+RUN cd build
+RUN CC=clang CXX=clang++ cmake ../e1
+RUN make
 
 # Package Stage
 FROM --platform=linux/amd64 ubuntu:20.04
 
 ## TODO: Change <Path in Builder Stage>
-COPY --from=builder /loguru/build/loguru_example /
+COPY --from=builder /loguru_example /
 
