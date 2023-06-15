@@ -19,8 +19,6 @@ int main(int argc, char* argv[]) {
     LOG_F(INFO, "begin fuzz");
 
     while (1) {
-        while (bytesWritten < bytesRead and buff[bytesWritten] == '\0')
-            ++bytesWritten;
         if (bytesWritten >= bytesRead)
             break;
         LOG_F(INFO, buff + bytesWritten);
