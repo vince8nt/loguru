@@ -1,5 +1,5 @@
 project: loguru
-target: loguru_example
+target: loguru
 image: ghcr.io/vince8nt/loguru:latest
 
 cmds:
