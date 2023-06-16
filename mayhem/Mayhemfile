@@ -2,9 +2,6 @@ project: loguru
 target: loguru
 image: ghcr.io/vince8nt/loguru:latest
 
-# Turn on Mayhem's advanced triage capabilities.
-advanced_triage: true
-
 # The tasks to perform during a run.
 tasks:
   - name: exploitability_factors
