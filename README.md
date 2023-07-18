@@ -1,8 +1,25 @@
 # Using Mayhem to fuzz test Loguru:
 
-![Loguru fuzz report](FuzzReport.pdf)
+View the report: [FuzzReport](FuzzReport.pdf)
 
-original README as follows:
+For this project, I’ve decided to fuzz test a lightweight C++ logging library, Loguru.
+This fork includes the following notable changes from its origin:
+* .github/workflows/mayhem.yml
+	* Helps set up Mayhem and provides locations of the Dockerfile and Mayhemfile.
+* mayhem/Dockerfile
+	* Used by Docker to build the code and dependencies in harness.
+* mayhem/Mayhemfile
+	* Specifies the fuzzing behavior for the Mayhem run
+* pkgs/container/loguru
+	* Used by github actions to automatically perform fuzz testing when pushing to the repository. List of actions: github.com/vince8nt/loguru/actions. The workflow is currently passing all stages.
+* harness/...
+	* The current harness program to be fuzzed by Mayhem. Includes build tools.
+* old_harness/...
+	* A place to store my older harness programs that are not currently being tested.
+
+Note: The defects found in fuzzing have to do with supplying Loguru with a non-literal string. Which may, for example, include the '%' character. Using appropriate compiler warning flags can help programmers prevent such defects in practice.
+
+original README of Loguru as follows:
 
 # Loguru: a lightweight and flexible C++ logging library.
 
