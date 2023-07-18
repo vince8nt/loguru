@@ -1,3 +1,9 @@
+# Using Mayhem to fuzz test Loguru:
+
+![Loguru fuzz report](FuzzReport.pdf)
+
+original README as follows:
+
 # Loguru: a lightweight and flexible C++ logging library.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/hret4rx3xakjs7j4?svg=true)](https://ci.appveyor.com/project/emilk/loguru)
